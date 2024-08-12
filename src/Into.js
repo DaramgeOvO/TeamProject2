@@ -103,7 +103,6 @@ export function Into() {
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
-      ;
     </>
   );
 }
