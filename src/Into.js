@@ -14,6 +14,7 @@ import { StudyRoom } from "./StudyRoom";
 import { Test } from "./Test";
 import { GameShop } from "./GameShop";
 import { GroupLecRoom } from "./GroupLecRoom";
+import { GroupLecRoomDetail } from "./GroupLecRoomDetail";
 import { SpecialLecRoom } from "./SpecialLecRoom";
 import { Error } from "./Error";
 import { MyLecture } from "./MyLecture";
@@ -77,6 +78,10 @@ function AppContent() {
             <Route path="/studyroom" element={<StudyRoom />} />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
             <Route path="/speciallecroom" element={<SpecialLecRoom />} />
+            <Route
+              path="/grouplecroomdetail"
+              element={<GroupLecRoomDetail />}
+            />
 
             <Route path="/customer" element={<Customer />} />
             <Route path="/login" element={<Login />} />
