@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Header = styled.div`
   height: 600px;
@@ -20,28 +24,7 @@ const Box = styled.div`
   padding: 100px;
 `;
 
-const Room1 = styled.div`
-  width: 250px;
-  height: 330px;
-  background-color: gray;
-  justify-self: center;
-`;
-
-const Room2 = styled.div`
-  width: 250px;
-  height: 330px;
-  background-color: gray;
-  justify-self: center;
-`;
-
-const Room3 = styled.div`
-  width: 250px;
-  height: 330px;
-  background-color: gray;
-  justify-self: center;
-`;
-
-const Room4 = styled.div`
+const Room = styled.div`
   width: 250px;
   height: 330px;
   background-color: gray;
@@ -56,16 +39,58 @@ const Title = styled.div`
 `;
 
 export function StudyRoom() {
+  const [studyRooms, setStudyRooms] = useState([]);
+  const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/studyroom")
+      .then((response) => {
+        setStudyRooms(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching study rooms:", error);
+      });
+  }, []);
+
+  const handleRoomClick = (roomId) => {
+    axios
+      .get("http://localhost:8080/api/user/current", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (
+          response.status === 200 &&
+          response.data.userId !== "anonymousUser"
+        ) {
+          setUserId(response.data.userId);
+          navigate(`/chating-room/${roomId}/${response.data.userId}`);
+        } else {
+          console.log("로그인 안됨");
+          alert("스터디룸 입장을 위해서는 로그인이 필요합니다");
+        }
+      })
+      .catch((error) => {
+        console.log("에러 발생:", error);
+      });
+  };
+
   return (
     <>
       <Header></Header>
       <Container>
         <Title>스터디룸</Title>
         <Box>
-          <Room1></Room1>
-          <Room2></Room2>
-          <Room3></Room3>
-          <Room4></Room4>
+          {studyRooms.map((room) => (
+            <Room
+              key={room.stRoomId}
+              onClick={() => handleRoomClick(room.stRoomId)}
+            >
+              Room {room.stRoomId}
+            </Room>
+          ))}
         </Box>
       </Container>
     </>
