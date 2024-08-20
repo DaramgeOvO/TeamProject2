@@ -27,6 +27,9 @@ import { Intro } from "./Intro";
 import { HallOfFame } from "./HallOfFame";
 import { MyLank } from "./MyLank";
 import { ChatingRoom } from "./ChatingRoom";
+import { NoticeDetail } from "./NoticeDetail";
+import { QnaDetail } from "./QnaDetail";
+import { QnaWrite } from "./QnaWrite";
 
 const Container = styled.div`
   width: 100%;
@@ -89,6 +92,9 @@ function AppContent() {
             />
 
             <Route path="/customer" element={<Customer />} />
+            <Route path="/notice/:id" element={<NoticeDetail />} />
+            <Route path="/qna/:id" element={<QnaDetail />} />
+            <Route path="/qna/write" element={<QnaWrite />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
 

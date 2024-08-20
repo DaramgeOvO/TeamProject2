@@ -1,3 +1,7 @@
 export function Mock() {
-  return <></>;
+  return (
+    <>
+      <h1>모의고사</h1>
+    </>
+  );
 }
