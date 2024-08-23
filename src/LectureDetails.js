@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Lecture } from "./Lecture";
+
 const Box1 = styled.div`
   display: flex;
   justify-content: center;

@@ -5,6 +5,7 @@ import { About } from "./About";
 import { Customer } from "./Customer";
 import { Game } from "./Game";
 import { LectureList } from "./LectureList";
+import { LectureDetails } from "./LectureDetails";
 import { Lecture } from "./Lecture";
 import { Login } from "./Login";
 import { Main } from "./Main";
@@ -31,6 +32,10 @@ import { NoticeDetail } from "./NoticeDetail";
 import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
+import { LectureExit } from "./LectureExit";
+{
+  /* exit는 나중에 삭제 */
+}
 
 const Container = styled.div`
   width: 100%;
@@ -99,6 +104,8 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/order" element={<Order />} />
+            {/* 아래는 나중에 삭제 */}
+            <Route path="/lectureExit" element={<LectureExit />} />
 
             <Route path="/mypage" element={<MyPage />}>
               <Route path="mylecture" element={<MyLecture />} />

@@ -141,7 +141,7 @@ export function Store() {
         <StoreImage></StoreImage>
         <StoreGrid>
           {books.map((book) => (
-            <StoreBox key={book.bookId}>
+            <StoreBox key={book.storeItemId}>
               <StoreImage1>
                 <img
                   src={`http://localhost:8080/api/images/${book.image_path}`}
@@ -159,7 +159,7 @@ export function Store() {
             </StoreBox>
           ))}
           {mockTickets.map((ticket) => (
-            <StoreBox key={ticket.ticketId}>
+            <StoreBox key={ticket.storeItemId}>
               <StoreImage1>
                 <img
                   src={`http://localhost:8080/api/images/${ticket.image_path}`}
