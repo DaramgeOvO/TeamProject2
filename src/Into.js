@@ -32,10 +32,7 @@ import { NoticeDetail } from "./NoticeDetail";
 import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
-import { LectureExit } from "./LectureExit";
-{
-  /* exit는 나중에 삭제 */
-}
+import { LectureWrapper } from "./LectureWrapper";
 
 const Container = styled.div`
   width: 100%;
@@ -70,9 +67,9 @@ function AppContent() {
               <Route path="address" index element={<Address />} />
             </Route>
 
-            <Route path="/lecturelist" element={<LectureList />}>
+            <Route path="/lecturelist" element={<LectureWrapper />}>
               <Route index element={<LectureList />} />
-              <Route path=":id" element={<Lecture />} />
+              <Route path="lecture/:id" element={<Lecture />} />
             </Route>
 
             <Route path="/store" element={<Store />} />
@@ -104,8 +101,6 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/order" element={<Order />} />
-            {/* 아래는 나중에 삭제 */}
-            <Route path="/lectureExit" element={<LectureExit />} />
 
             <Route path="/mypage" element={<MyPage />}>
               <Route path="mylecture" element={<MyLecture />} />
