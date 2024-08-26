@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRoutes } from "react-router-dom";
 import styled from "styled-components";
+import cartImage from "./assets/img/cartImage.png";
 
 const Container = styled.div`
   width: 60%;
@@ -101,6 +102,24 @@ const CartItemLine = styled.div`
   transform-origin: center;
 `;
 const CartItemBox = styled.div``;
+
+const EmptyBox = styled.div`
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const EmptyCartImg = styled.img`
+  width: 50px;
+  height: auto;
+`;
+const EmptyCartMessage = styled.div`
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 30px;
+`;
 
 const CartItemInput = styled.input`
   width: 9px;
@@ -317,47 +336,55 @@ export function Cart() {
           <p>합계/금액</p>
           <p>배송비</p>
         </CartMenuGrid>
-        {cartItems.map((item) => (
-          <CartItemBox key={item.id}>
-            <CartItemGrid>
-              <CartItemInput
-                type="checkbox"
-                style={{
-                  transform: "scale(2.3)",
-                  transformOrigin: "0 0",
-                }}
-                onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
-                checked={checkItem.includes(item.id)}
-              />
-              <CartItemImg></CartItemImg>
-              <CartItemText>
-                {item.bookName || item.mockTicketName || item.lectureName}
-              </CartItemText>
-              <CartItemCount>
-                <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
-                  -
-                </CountMinusButton>
-                <CartItemCount1>{item.quantity}</CartItemCount1>
-                <CountButton onClick={() => updateQuantity(item.id, 1)}>
-                  +
-                </CountButton>
-              </CartItemCount>
-              <CartItemPrice>
-                {(item.bookPrice || item.ticketPrice || item.lecPrice) + " 원"}
-              </CartItemPrice>
-              <CartItemTotalPrice>
-                {(item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
-                  (item.quantity || 1) +
-                  item.shippingCost}{" "}
-                원
-              </CartItemTotalPrice>
-              <CartItemDelivery>
-                {item.shippingCost === 0 ? "무료" : `${item.shippingCost} 원`}
-              </CartItemDelivery>
-            </CartItemGrid>
-            <CartItemLine></CartItemLine>
-          </CartItemBox>
-        ))}
+        {cartItems.length === 0 ? (
+          <EmptyBox>
+            <EmptyCartImg src={cartImage}></EmptyCartImg>
+            <EmptyCartMessage>장바구니가 비어 있습니다</EmptyCartMessage>
+          </EmptyBox>
+        ) : (
+          cartItems.map((item) => (
+            <CartItemBox key={item.id}>
+              <CartItemGrid>
+                <CartItemInput
+                  type="checkbox"
+                  style={{
+                    transform: "scale(2.3)",
+                    transformOrigin: "0 0",
+                  }}
+                  onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
+                  checked={checkItem.includes(item.id)}
+                />
+                <CartItemImg></CartItemImg>
+                <CartItemText>
+                  {item.bookName || item.mockTicketName || item.lectureName}
+                </CartItemText>
+                <CartItemCount>
+                  <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
+                    -
+                  </CountMinusButton>
+                  <CartItemCount1>{item.quantity}</CartItemCount1>
+                  <CountButton onClick={() => updateQuantity(item.id, 1)}>
+                    +
+                  </CountButton>
+                </CartItemCount>
+                <CartItemPrice>
+                  {(item.bookPrice || item.ticketPrice || item.lecPrice) +
+                    " 원"}
+                </CartItemPrice>
+                <CartItemTotalPrice>
+                  {(item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
+                    (item.quantity || 1) +
+                    item.shippingCost}{" "}
+                  원
+                </CartItemTotalPrice>
+                <CartItemDelivery>
+                  {item.shippingCost === 0 ? "무료" : `${item.shippingCost} 원`}
+                </CartItemDelivery>
+              </CartItemGrid>
+              <CartItemLine></CartItemLine>
+            </CartItemBox>
+          ))
+        )}
         <CartItemBox>
           <CartItemLine></CartItemLine>
         </CartItemBox>
