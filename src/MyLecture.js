@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 60%;

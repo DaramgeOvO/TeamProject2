@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 import styled from "styled-components";
 import cartImage from "./assets/img/cartImage.png";
 
@@ -110,10 +110,12 @@ const EmptyBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const EmptyCartImg = styled.img`
   width: 50px;
   height: auto;
 `;
+
 const EmptyCartMessage = styled.div`
   text-align: center;
   font-size: 1.2rem;
@@ -231,20 +233,38 @@ const Footer = styled.div`
 export function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [checkItem, setCheckItem] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const updatedCart = storedCart.map((item) => ({
+    const updatedCart = storedCart.map((item, index) => ({
       ...item,
+      uniqueId: `${item.id}-${index}`, // Create a unique identifier
       shippingCost: item.mockTicketName || item.lectureName ? 0 : 3000,
       quantity: item.quantity || 1,
     }));
     setCartItems(updatedCart);
   }, []);
 
+  const handleOrderAll = () => {
+    navigate("/order", { state: { cartItems } });
+  };
+
+  const handleSelectOrder = () => {
+    const selectedItems = cartItems.filter((item) =>
+      checkItem.includes(item.uniqueId)
+    );
+    if (selectedItems.length === 0) {
+      alert("선택된 상품이 없습니다.");
+      return;
+    }
+    localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+    navigate("/order", { state: { cartItems: selectedItems } });
+  };
+
   const calculateTotalPrice = () => {
     return cartItems
-      .filter((item) => checkItem.includes(item.id))
+      .filter((item) => checkItem.includes(item.uniqueId))
       .reduce(
         (total, item) =>
           total +
@@ -256,7 +276,7 @@ export function Cart() {
 
   const calculateShippingCost = () => {
     return cartItems
-      .filter((item) => checkItem.includes(item.id))
+      .filter((item) => checkItem.includes(item.uniqueId))
       .reduce((total, item) => total + (item.shippingCost || 0), 0);
   };
 
@@ -264,16 +284,19 @@ export function Cart() {
     return calculateTotalPrice() + calculateShippingCost();
   };
 
-  const updateQuantity = (id, change) => {
+  const updateQuantity = (uniqueId, change) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.map((item) => {
-        if (item.id === id) {
+        if (item.uniqueId === uniqueId) {
           const newQuantity = item.quantity + change;
           if (newQuantity < 1) {
             alert("최소 1개 이상 주문이 가능합니다");
             return item;
           }
-          return { ...item, quantity: newQuantity };
+          return {
+            ...item,
+            quantity: newQuantity,
+          };
         }
         return item;
       });
@@ -283,21 +306,18 @@ export function Cart() {
     });
   };
 
-  const handleSingleCheck = (checked, id) => {
-    console.log("Single Check - ID:", id, "Checked:", checked);
-    setCheckItem((prev) => {
-      if (checked) {
-        return [...new Set([...prev, id])];
-      } else {
-        return prev.filter((el) => el !== id);
-      }
-    });
+  const handleSingleCheck = (checked, uniqueId) => {
+    if (checked) {
+      setCheckItem((prev) => [...prev, uniqueId]);
+    } else {
+      setCheckItem(checkItem.filter((el) => el !== uniqueId));
+    }
   };
 
   const handleAllCheck = (checked) => {
-    console.log("All Check - Checked:", checked);
     if (checked) {
-      setCheckItem(cartItems.map((item) => item.id));
+      const ids = cartItems.map((el) => el.uniqueId);
+      setCheckItem(ids);
     } else {
       setCheckItem([]);
     }
@@ -305,14 +325,13 @@ export function Cart() {
 
   const handleDeleteSelected = () => {
     const updatedItems = cartItems.filter(
-      (item) => !checkItem.includes(item.id)
+      (item) => !checkItem.includes(item.uniqueId)
     );
     setCartItems(updatedItems);
     setCheckItem([]);
 
     localStorage.setItem("cart", JSON.stringify(updatedItems));
   };
-
   return (
     <>
       <Container>
@@ -343,7 +362,7 @@ export function Cart() {
           </EmptyBox>
         ) : (
           cartItems.map((item) => (
-            <CartItemBox key={item.id}>
+            <CartItemBox key={item.uniqueId}>
               <CartItemGrid>
                 <CartItemInput
                   type="checkbox"
@@ -351,19 +370,23 @@ export function Cart() {
                     transform: "scale(2.3)",
                     transformOrigin: "0 0",
                   }}
-                  onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
-                  checked={checkItem.includes(item.id)}
+                  onChange={(e) =>
+                    handleSingleCheck(e.target.checked, item.uniqueId)
+                  }
+                  checked={checkItem.includes(item.uniqueId)}
                 />
                 <CartItemImg></CartItemImg>
                 <CartItemText>
                   {item.bookName || item.mockTicketName || item.lectureName}
                 </CartItemText>
                 <CartItemCount>
-                  <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
+                  <CountMinusButton
+                    onClick={() => updateQuantity(item.uniqueId, -1)}
+                  >
                     -
                   </CountMinusButton>
                   <CartItemCount1>{item.quantity}</CartItemCount1>
-                  <CountButton onClick={() => updateQuantity(item.id, 1)}>
+                  <CountButton onClick={() => updateQuantity(item.uniqueId, 1)}>
                     +
                   </CountButton>
                 </CartItemCount>
@@ -385,9 +408,11 @@ export function Cart() {
             </CartItemBox>
           ))
         )}
+
         <CartItemBox>
           <CartItemLine></CartItemLine>
         </CartItemBox>
+
         <CartPriceBox>
           <CartPriceText1>
             총 {checkItem.length}
@@ -404,8 +429,10 @@ export function Cart() {
             선택 상품 삭제
           </CartOrderDelete>
           <CartOrderBox1>
-            <CartSelectOrder>선택 상품 주문</CartSelectOrder>
-            <CartAllOrder>전체 상품 주문</CartAllOrder>
+            <CartSelectOrder onClick={handleSelectOrder}>
+              선택 상품 주문
+            </CartSelectOrder>
+            <CartAllOrder onClick={handleOrderAll}>전체 상품 주문</CartAllOrder>
           </CartOrderBox1>
         </CartOrderBox>
       </Container>
