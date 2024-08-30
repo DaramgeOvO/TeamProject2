@@ -104,8 +104,8 @@ export function MyLecture() {
       });
   }, []);
 
-  const handleLectureClick = (lectureId) => {
-    navigate(`/lectureView/${lectureId}`);
+  const handleLectureClick = (storeItemId) => {
+    navigate(`/lectureView/${storeItemId}`);
   };
 
   return (
