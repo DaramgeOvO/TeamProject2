@@ -36,6 +36,7 @@ import { LectureWrapper } from "./LectureWrapper";
 import { StreamLecture } from "./StreamLecture";
 import { LectureView } from "./LectureView";
 import { OrderCompleted } from "./OrderCompleted";
+import { StreamWrapper } from "./StreamWrapper";
 
 const Container = styled.div`
   width: 100%;
@@ -91,8 +92,8 @@ function AppContent() {
               element={<ChatingRoom />}
             />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
-            <Route path="/speciallecroom" element={<SpecialLecRoom />}>
-              <Route index element={SpecialLecRoom} />
+            <Route path="/speciallecroom" element={<StreamWrapper />}>
+              <Route index element={<SpecialLecRoom />} />
               <Route path=":streamId" element={<StreamLecture />} />
             </Route>
             <Route
@@ -108,7 +109,7 @@ function AppContent() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/order" element={<Order />} />
             <Route path="/orderCompleted" element={<OrderCompleted />} />
-            <Route path="/lectureView" element={<LectureView />} />
+            <Route path="/lectureView/:storeItemId" element={<LectureView />} />
 
             <Route path="/mypage" element={<MyPage />}>
               <Route path="mylecture" element={<MyLecture />} />
