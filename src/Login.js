@@ -1,7 +1,7 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useRef, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 850px;
@@ -23,12 +23,13 @@ const Title = styled.div`
   font-weight: 800;
   text-align: center;
   margin-bottom: 40px;
+  cursor: default;
 `;
 
 const InputBox = styled.input`
   height: 40px;
   font-size: 0.8rem;
-  padding: 0 20px;
+  padding: 0 10px;
 `;
 
 const Signin = styled.button`
@@ -56,6 +57,12 @@ const JoinLink = styled.div`
   margin-top: 15px;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 export function Login() {
@@ -86,13 +93,13 @@ export function Login() {
       password: password,
     };
     axios
-      .post("http://localhost:8080/api/user/login", userData, {
+      .post("http://localhost:8080/api/authenticate", userData, {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("데이터: ", response);
-        if (response.status === 200) {
-          localStorage.setItem("authToken", response.data.token);
+        console.log("데이터: ", response.data.resultCode);
+        if (response.data.resultCode == "SUCCESS") {
+          sessionStorage.setItem("JWT-Token", response.data.data.token);
           navigate(from, { replace: true });
           window.location.reload();
         } else {
@@ -129,7 +136,9 @@ export function Login() {
             </label>
           </ShowPwBox>
           <Signin onClick={handleLogin}>로그인</Signin>
-          <JoinLink>회원가입</JoinLink>
+          <StyledLink to="/signup">
+            <JoinLink>회원가입</JoinLink>
+          </StyledLink>
         </Box>
       </Container>
     </>

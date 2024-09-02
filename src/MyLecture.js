@@ -62,6 +62,7 @@ const LectureGo = styled.div`
   text-align: center;
   line-height: 70px;
   align-self: self-end;
+  cursor: pointer;
 `;
 const LectureMargin = styled.div`
   height: 20px;

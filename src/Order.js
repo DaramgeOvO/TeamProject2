@@ -278,23 +278,36 @@ export function Order() {
 
   const handlePurchase = async () => {
     try {
-      const purchasePromises = items.map((item) =>
-        axios.post(
-          "/api/purchase/save",
-          {
-            user: {
-              userId: user.userId,
-            },
-            storeItem: {
-              storeItemId: item.storeItemId,
-            },
-            purchaseTime: new Date().toISOString(),
-            address: user.address,
-            quantity: item.quantity || 1,
+      const purchasePromises = items.map((item) => {
+        let purchaseData = {
+          user: {
+            userId: user.userId,
           },
-          { withCredentials: true }
-        )
-      );
+          purchaseTime: new Date().toISOString(),
+          address: user.address,
+          quantity: item.quantity || 1,
+        };
+
+        if (item.storeItemId) {
+          purchaseData.storeItem = {
+            storeItemId: item.storeItemId,
+          };
+          if (item.bookName) {
+            purchaseData.storeItem.bookName = item.bookName;
+          } else if (item.mockTicketName) {
+            purchaseData.storeItem.mockTicketName = item.mockTicketName;
+          }
+        } else if (item.lectureId) {
+          purchaseData.lecture = {
+            lectureId: item.lectureId,
+            lectureName: item.lectureName,
+          };
+        }
+
+        return axios.post("/api/purchase/save", purchaseData, {
+          withCredentials: true,
+        });
+      });
 
       const responses = await Promise.all(purchasePromises);
 
