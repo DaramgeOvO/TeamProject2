@@ -505,7 +505,7 @@ export function MyLank() {
           <LearningStatusGrid>
             <p>강좌명</p>
 
-            <p>상태</p>
+            <p>진도율</p>
           </LearningStatusGrid>
           <LearningStatus></LearningStatus>
         </div>
