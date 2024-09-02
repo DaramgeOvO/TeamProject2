@@ -104,7 +104,7 @@ export function Menu() {
 
   function sessionCurrent() {
     axios
-      .get("http://localhost:8080/api/user/current", { withCredentials: true })
+      .get("/api/user/current", { withCredentials: true })
       .then((response) => {
         console.log("데이터:", response);
         if (
@@ -125,11 +125,16 @@ export function Menu() {
 
   const handleLogout = (e) => {
     e.preventDefault(); // 링크의 기본 동작 방지
-    document.cookie =
-      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    if (window.confirm("로그아웃하시겠습니까?")) {
+      sessionStorage.removeItem("JWT-token");
+      window.location.reload();
+    }
 
-    localStorage.removeItem("authToken");
-    sessionStorage.removeItem("authToken");
+    // document.cookie =
+    //   "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+    // localStorage.removeItem("authToken");
+    // sessionStorage.removeItem("authToken");
 
     setIsLoggedIn(false);
     navigate(location.pathname, { replace: true });

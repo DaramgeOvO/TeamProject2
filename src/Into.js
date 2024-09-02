@@ -37,6 +37,8 @@ import { StreamLecture } from "./StreamLecture";
 import { LectureView } from "./LectureView";
 import { OrderCompleted } from "./OrderCompleted";
 import { StreamWrapper } from "./StreamWrapper";
+import { CreateStream } from "./CreateStream";
+import { FooterReal } from "./Footer";
 
 const Container = styled.div`
   width: 100%;
@@ -96,6 +98,7 @@ function AppContent() {
               <Route index element={<SpecialLecRoom />} />
               <Route path=":streamId" element={<StreamLecture />} />
             </Route>
+            <Route path="/create-stream" element={<CreateStream />} />
             <Route
               path="/grouplecroomdetail"
               element={<GroupLecRoomDetail />}
@@ -122,6 +125,7 @@ function AppContent() {
           </Routes>
         </Body>
       </Container>
+      <FooterReal />
     </>
   );
 }
