@@ -95,8 +95,17 @@ export function Store() {
   const mockTicketStoreItemId = 1; //
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
-      .get(`/api/storeItem/${bookStoreItemId}/books`)
+      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("Books API Response:", response.data);
         setBooks(response.data);
@@ -106,7 +115,15 @@ export function Store() {
       });
 
     axios
-      .get(`/api/storeItem/${mockTicketStoreItemId}/mockTickets`)
+      .get(
+        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
       .then((response) => {
         console.log("MockTickets API Response:", response.data);
         setMockTickets(response.data);
