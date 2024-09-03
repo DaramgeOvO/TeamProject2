@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 
 const ContList = styled.div`
@@ -18,6 +19,7 @@ const Title = styled.div`
   font-size: 1.2rem;
   margin: 20px 0;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Writer = styled.div`
@@ -67,8 +69,10 @@ export function QnaList({ qnas, onQnaClick }) {
     <>
       <List>
         {qnas.map((qna) => (
-          <ContList key={qna.qnaId} onClick={() => onQnaClick(qna)}>
-            <Title>{qna.question}</Title>
+          <ContList>
+            <Title key={qna.qnaId} onClick={() => onQnaClick(qna)}>
+              {qna.title}
+            </Title>
             <Right>
               <Writer>작성자</Writer>
               <Date>{qna.writeDate}</Date>

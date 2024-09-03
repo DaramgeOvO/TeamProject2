@@ -18,6 +18,7 @@ const Title = styled.div`
   font-size: 1.2rem;
   margin: 20px 0;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
@@ -54,8 +55,10 @@ export function NoticeList({ notices, onNoticeClick }) {
     <>
       <List>
         {notices.map((notice) => (
-          <ContList key={notice.noticeId} onClick={() => onNoticeClick(notice)}>
-            <Title>{notice.title}</Title>
+          <ContList>
+            <Title key={notice.noticeId} onClick={() => onNoticeClick(notice)}>
+              {notice.title}
+            </Title>
             <Content>{notice.writeDate}</Content>
           </ContList>
         ))}
