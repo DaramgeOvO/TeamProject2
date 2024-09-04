@@ -19,7 +19,6 @@ const Title = styled.div`
   font-size: 1.2rem;
   margin: 20px 0;
   font-weight: 600;
-  cursor: pointer;
 `;
 
 const Writer = styled.div`
@@ -69,10 +68,8 @@ export function QnaList({ qnas, onQnaClick }) {
     <>
       <List>
         {qnas.map((qna) => (
-          <ContList>
-            <Title key={qna.qnaId} onClick={() => onQnaClick(qna)}>
-              {qna.title}
-            </Title>
+          <ContList key={qna.qnaId} onClick={() => onQnaClick(qna)}>
+            <Title>{qna.title}</Title>
             <Right>
               <Writer>작성자</Writer>
               <Date>{qna.writeDate}</Date>
