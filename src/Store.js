@@ -100,7 +100,7 @@ export function Store() {
       return;
     }
     axios
-      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`, {
+      .get(`/api/storeItem/${bookStoreItemId}/books`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -115,15 +115,12 @@ export function Store() {
       });
 
     axios
-      .get(
-        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`,
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        }
-      )
+      .get(`/api/storeItem/${mockTicketStoreItemId}/mockTickets`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("MockTickets API Response:", response.data);
         setMockTickets(response.data);

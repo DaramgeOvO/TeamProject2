@@ -89,6 +89,10 @@ export function Customer() {
   const navigate = useNavigate();
 
   const fetchNotices = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
@@ -98,7 +102,7 @@ export function Customer() {
             Authorization: `Bearer ${jwtToken}`,
           },
         }); // 백엔드 API 호출
-        setNotices(response.data);
+        setNotices(response.data.reverse());
       } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
@@ -106,6 +110,10 @@ export function Customer() {
   };
 
   const fetchQnas = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
@@ -115,7 +123,7 @@ export function Customer() {
             Authorization: `Bearer ${jwtToken}`,
           },
         }); // 백엔드 API 호출
-        setQnas(response.data);
+        setQnas(response.data.reverse());
       } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
@@ -144,7 +152,7 @@ export function Customer() {
 
   return (
     <>
-      <Img></Img>
+      {/* <Img></Img> */}
       <TitleBox>공지사항 / 1:1 문의</TitleBox>
       <CusTabs
         selectedTab={selectedTab}

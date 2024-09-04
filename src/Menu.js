@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import Logo from "./assets/img/로고.png";
 
 const SubMenu = styled.div`
   width: 100%;
@@ -42,10 +43,11 @@ const MenuContainer = styled.div`
 `;
 
 const Img = styled.div`
-  background-color: gray;
-  width: 50px;
   height: 50px;
+  width: 73px;
   margin: 10px;
+  background-image: url(${Logo});
+  background-size: cover;
 `;
 
 const MenuBtn = styled(Link)`
@@ -53,6 +55,11 @@ const MenuBtn = styled(Link)`
   text-decoration: none;
   color: black;
   font-size: 1.1rem;
+  font-weight: 540;
+  &:hover {
+    color: #033492;
+    font-weight: bold;
+  }
 `;
 
 const SubMenuBtn = styled(Link)`
@@ -61,6 +68,11 @@ const SubMenuBtn = styled(Link)`
   color: black;
   font-size: 0.9rem;
   text-align: center;
+
+  &:hover {
+    color: #033492;
+    font-weight: bold;
+  }
 `;
 
 const Center = styled.div`
