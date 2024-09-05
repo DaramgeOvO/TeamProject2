@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import style from "style-component";
 import styled from "styled-components";
 
 const Img = styled.div`
@@ -131,15 +133,27 @@ export function QnaDetail() {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    if (!qna?.id) return;
+    if (!qna?.qnAId) {
+      console.error("QNA ID is missing");
+      return;
+    }
+
     const fetchComments = async () => {
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (!jwtToken) {
+        throw new Error("JWT Token not found in sessionStorage");
+      }
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/reply/get?qnaId=${qna.id}`
+        const response = await axios.get(
+          `http://localhost:8080/api/reply/get?qnaId=${qna.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
         );
-        if (response.ok) {
-          const data = await response.json();
-          setComments(data); // 댓글 데이터를 상태로 저장
+        if (response.status === 200) {
+          setComments(response.data); // 댓글 데이터를 상태로 저장
         } else {
           console.error("Failed to fetch comments");
         }
@@ -149,13 +163,22 @@ export function QnaDetail() {
     };
 
     fetchComments();
-  }, [qna?.id]);
+  }, [qna?.qnAId]);
 
   const handlePostComment = async () => {
     if (!comment.trim()) return;
 
     try {
       const token = sessionStorage.getItem("JWT-Token");
+
+      const qnAId = qna?.qnAId;
+      if (!qnAId) {
+        console.error("qnaId is missing");
+        return;
+      }
+
+      console.log("Posting comment with qnaId:", qnAId);
+      console.log("Comment text:", comment);
       // 서버에 댓글 저장하는 API 요청 (가정)
       const response = await fetch("http://localhost:8080/api/reply/save", {
         method: "POST",
@@ -164,7 +187,7 @@ export function QnaDetail() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          qnaId: qna.qnaId, // 질문 ID
+          qna: qna.qnAId, // 질문 ID
           text: comment,
           date: new Date().toISOString(), // 저장할 때 현재 시간도 함께 보냄
         }),

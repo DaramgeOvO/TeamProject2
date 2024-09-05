@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import style from "style-component";
 import styled from "styled-components";
 
 const ContList = styled.div`
@@ -64,6 +64,8 @@ export function QnaList({ qnas, onQnaClick }) {
     navigate("/qna/write");
   };
 
+  console.log("QNA List Data:", qnas);
+
   return (
     <>
       <List>
@@ -71,7 +73,7 @@ export function QnaList({ qnas, onQnaClick }) {
           <ContList key={qna.qnaId} onClick={() => onQnaClick(qna)}>
             <Title>{qna.title}</Title>
             <Right>
-              <Writer>작성자</Writer>
+              <Writer>{qna.user.userId}</Writer>
               <Date>{qna.writeDate}</Date>
             </Right>
           </ContList>
