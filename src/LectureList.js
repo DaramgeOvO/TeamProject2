@@ -53,15 +53,12 @@ const Button = styled.button`
 export function LectureList() {
   return (
     <>
-      <Img></Img>
       <LectureBestSeller />
       <Box1>
-        <BigBox>
-         
-        </BigBox>
+        <BigBox></BigBox>
       </Box1>
       <LectureDetails />
-      
+
       <Outlet />
     </>
   );

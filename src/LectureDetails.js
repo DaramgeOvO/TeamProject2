@@ -14,13 +14,6 @@ const BigBox = styled.div`
   margin: 50px 0 50px 0;
 `;
 
-const H1 = styled.h1`
-  /* margin: 150px 0px 30px 395px; */
-  font-size: 2rem;
-  font-weight: 400;
-  margin-left: 80px;
-`;
-
 const Box = styled.div`
   display: flex;
   justify-content: center;
@@ -38,6 +31,8 @@ const LecImg = styled.img`
   height: 200px;
   padding-bottom: 10px;
   border-radius: 20px;
+  border: 1px solid #333;
+  margin: 20px 0 15px;
 `;
 
 const CardBox = styled.div`
@@ -95,7 +90,8 @@ const Button = styled.button`
   border-radius: 30px;
   padding: 0 20px;
   border: none;
-  background-color: ${(props) => (props.active ? "lightgray" : "lightgray")};
+  background-color: ${(props) => (props.active ? "black" : "lightgray")};
+  color: ${(props) => (props.active ? "white" : "black")};
   margin: 30px 15px;
   font-size: 1rem;
   font-weight: 600;
@@ -114,8 +110,6 @@ const H = styled.h1`
   text-align: center;
   margin-top: 120px;
 `;
-
-
 
 export function LectureDetails() {
   const [lectures, setLectures] = useState([]);
@@ -149,31 +143,31 @@ export function LectureDetails() {
 
   const categories = ["전체강의", "RC", "LC", "Package"];
 
-  const filteredLectures = activeCategory === "전체강의"
-    ? lectures
-    : lectures.filter(lecture => lecture.subject === activeCategory);
+  const filteredLectures =
+    activeCategory === "전체강의"
+      ? lectures
+      : lectures.filter((lecture) => lecture.subject === activeCategory);
 
-    const getTitle = () => {
-      switch(activeCategory) {
-        case "전체강의":
-          return "전체강의";
-        case "RC":
-          return "RC";
-        case "LC":
-          return "LC";
-        case "Package":
-          return "Package";
-          default:
-            return "전체강의";
-      }
-    };
-  
+  const getTitle = () => {
+    switch (activeCategory) {
+      case "전체강의":
+        return "전체강의";
+      case "RC":
+        return "RC";
+      case "LC":
+        return "LC";
+      case "Package":
+        return "Package";
+      default:
+        return "전체강의";
+    }
+  };
 
   return (
     <>
       <Box1>
         <BigBox>
-        <H>내가 필요한 강의는?</H>
+          <H>내가 필요한 강의는?</H>
           <ButtonWrapper>
             {categories.map((category) => (
               <Button
@@ -185,7 +179,7 @@ export function LectureDetails() {
               </Button>
             ))}
           </ButtonWrapper>
-          <H1>{getTitle()}</H1>
+
           <Box>
             <Container>
               {filteredLectures.map((lecture) => (

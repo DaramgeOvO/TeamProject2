@@ -559,7 +559,7 @@ export function MyLank() {
             ) : purchases.length > 0 ? (
               extractLectures(purchases).map((lecture, index) => (
                 <React.Fragment key={index}>
-                  <MyPurchaseTitle>{lecture.lectureName},</MyPurchaseTitle>
+                  <MyPurchaseTitle>{lecture.lectureName}</MyPurchaseTitle>
                   <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
                   <MyLectureSubject>{lecture.subject}</MyLectureSubject>
                   <PurchaseStaus>진행중</PurchaseStaus>

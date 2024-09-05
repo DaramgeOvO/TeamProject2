@@ -18,7 +18,7 @@ const BigBox = styled.div`
 
 const H1 = styled.h1`
   /* margin: 150px 0px 30px 395px; */
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 400;
   padding-left: 20px;
 `;
@@ -41,6 +41,7 @@ const LecImg = styled.img`
   padding-bottom: 10px;
   border-radius: 20px;
   border: 1px solid grey;
+  margin-bottom: 15px;
 `;
 
 const CardBox = styled.div`
@@ -95,10 +96,9 @@ const SliderWrapper = styled.div`
   }
 `;
 
-
 export function LectureBestSeller() {
   const [lectures, setLectures] = useState([]);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -135,25 +135,25 @@ export function LectureBestSeller() {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    arrows: false,
+    arrows: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
- 
+
   return (
     <Box1>
       <BigBox>
@@ -163,7 +163,10 @@ export function LectureBestSeller() {
             {lectures.map((lecture) => (
               <div key={lecture.storeItemId}>
                 <Card onClick={() => handleCardClick(lecture.storeItemId)}>
-                  <LecImg src="/api/placeholder/350/200" alt={lecture.lectureName} />
+                  <LecImg
+                    src="/api/placeholder/350/200"
+                    alt={lecture.lectureName}
+                  />
                   <Category>{lecture.subject}</Category>
                   <Title>{lecture.lectureName}</Title>
                   <Price>{lecture.lecPrice} 원</Price>
