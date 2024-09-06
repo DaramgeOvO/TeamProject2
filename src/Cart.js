@@ -16,7 +16,7 @@ const CartMenuGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
   margin-top: 100px;
-  background-color: #f3f3f3;
+  background-color: #edede9;
   width: 100%;
   height: 40px;
   align-items: center;
@@ -130,7 +130,7 @@ const CartItemInput = styled.input`
 const CartPriceBox = styled.div`
   width: 100%;
   height: 65px;
-  background-color: #f3f3f3;
+  background-color: #edede9;
   margin: 80px 0 50px 0;
   display: flex;
   line-height: 90px;
@@ -208,7 +208,7 @@ const CartSelectOrder = styled.div`
 const CartAllOrder = styled.div`
   width: 160px;
   height: 50px;
-  background-color: #2f62cb;
+  background-color: #21378d;
   color: white;
   font-weight: bold;
   border-radius: 20px;
