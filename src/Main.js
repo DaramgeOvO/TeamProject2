@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import { Game } from "./Game";
+import PaulT from "./assets/img/PaulT.png";
+import YobelT from "./assets/img/YobelT.png";
+import JaneT from "./assets/img/JaneT.png";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   width: 100%;
@@ -11,30 +15,31 @@ const Body = styled.div``;
 
 const Box1 = styled.div`
   background-color: darkgray;
-  height: 900px;
+  height: 920px;
 `;
 
 const Box2 = styled.div`
-  background-color: gray;
-  height: 980px;
+  background-color: #e5e5e5;
+  height: 1000px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 const Box3 = styled.div`
-  background-color: darkgray;
-  height: 900px;
+  background-color: #fff;
+  height: 840px;
   padding: 50px;
 `;
 const Box4 = styled.div`
-  background-color: gray;
-  height: 2800px;
+  background-color: #e5e5e5;
+  height: 2300px;
   display: grid;
   grid-template-rows: 1fr 2fr 2fr 2fr;
-  gap: 200px;
+  gap: 130px;
+  padding-bottom: 50px;
 `;
 
 const Box5 = styled.div`
-  background-color: darkgray;
+  background-color: #e5e5e5;
   height: 900px;
   padding: 50px;
   display: grid;
@@ -42,14 +47,14 @@ const Box5 = styled.div`
 `;
 
 const Box6 = styled.div`
-  background-color: gray;
+  background-color: #e5e5e5;
   height: 900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 
 const Box7 = styled.div`
-  background-color: darkgray;
+  background-color: #e5e5e5;
   height: 1000px;
   display: flex;
   justify-content: center;
@@ -57,20 +62,20 @@ const Box7 = styled.div`
 
 const Box8 = styled.div`
   height: 1000px;
-  background-color: gray;
+  background-color: #e5e5e5;
   display: flex;
   justify-content: center;
 `;
 
 const Title2 = styled.div`
   font-size: 3.2rem;
-  font-weight: 500;
+  font-weight: 700;
   display: flex;
   justify-content: right;
   align-items: center;
   padding: 50px;
-  margin: 50px;
-  color: white;
+  margin: 350px 50px 50px 50px;
+  color: #0d3276;
 `;
 
 const Lanking2 = styled.div`
@@ -78,12 +83,13 @@ const Lanking2 = styled.div`
   justify-content: left;
   align-items: center;
   padding: 50px;
-  margin: 50px;
+  margin: 230px 50px 50px 50px;
 `;
 
 const LankImg2 = styled.div`
   width: 500px;
   height: 450px;
+  border-radius: 25px;
   background-color: white;
 `;
 const Title3 = styled.div`
@@ -109,7 +115,8 @@ const Lanking3 = styled.div`
 const LankImg3 = styled.div`
   width: 900px;
   height: 450px;
-  background-color: white;
+  background-color: #c8c8c8;
+  border-radius: 25px;
 `;
 
 const Title4 = styled.div`
@@ -125,12 +132,14 @@ const Lecture = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
-const TeacherImg1 = styled.div`
-  width: 400px;
+const TeacherImg1 = styled.img`
+  width: 230px;
   height: 400px;
-  background-color: white;
 `;
-const TeacherImg2 = styled.div``;
+const TeacherImg2 = styled.img`
+  width: 250px;
+  height: 400px;
+`;
 const TeacherImg3 = styled.div``;
 
 const Info = styled.div`
@@ -211,6 +220,7 @@ const GameImg1 = styled.div`
   height: 210px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 
 const GameImg2 = styled.div`
@@ -218,6 +228,7 @@ const GameImg2 = styled.div`
   height: 300px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 
 const GameImg3 = styled.div`
@@ -225,18 +236,21 @@ const GameImg3 = styled.div`
   height: 210px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 const GameImg4 = styled.div`
   width: 260px;
   height: 300px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 const BookImg = styled.div`
   width: 450px;
   height: 550px;
   background-color: white;
   margin: 50px;
+  border-radius: 25px;
 `;
 const BookInfo = styled.div`
   font-size: 1.4rem;
@@ -304,6 +318,7 @@ const StudyRoomImg1 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const StudyRoomImg2 = styled.div`
@@ -311,6 +326,7 @@ const StudyRoomImg2 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const StudyRoomImg3 = styled.div`
@@ -318,6 +334,7 @@ const StudyRoomImg3 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const Text7_1 = styled.div`
@@ -377,13 +394,35 @@ export function Main() {
         <Body>
           <Box1></Box1>
           <Box2>
-            <Title2>
-              점수가 오르는 학원 <br />
-              인투어학원
-            </Title2>
-            <Lanking2>
-              <LankImg2></LankImg2>
-            </Lanking2>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Title2>
+                점수가 오르는 학원 <br />
+                인투어학원
+              </Title2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Lanking2>
+                <LankImg2></LankImg2>
+              </Lanking2>
+            </motion.div>
           </Box2>
           <Box3>
             <Title3>
@@ -402,7 +441,7 @@ export function Main() {
             </Title4>
             <Lecture>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg2 src={PaulT}></TeacherImg2>
               <Info>
                 홍보문구
                 <Name>이름</Name>
@@ -419,11 +458,11 @@ export function Main() {
                 <LectureBtn>수강신청 바로가기</LectureBtn>
               </Info>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg1 src={YobelT}></TeacherImg1>
             </Lecture>
             <Lecture>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg1 src={JaneT}></TeacherImg1>
               <Info>
                 홍보문구
                 <Name>이름</Name>

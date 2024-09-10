@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const StoreTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 140px;
   text-align: center;
   font-size: 48px;
   font-weight: bold;
@@ -100,7 +100,7 @@ export function Store() {
       return;
     }
     axios
-      .get(`/api/storeItem/${bookStoreItemId}/books`, {
+      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -115,12 +115,15 @@ export function Store() {
       });
 
     axios
-      .get(`/api/storeItem/${mockTicketStoreItemId}/mockTickets`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+      .get(
+        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
       .then((response) => {
         console.log("MockTickets API Response:", response.data);
         setMockTickets(response.data);
@@ -174,8 +177,8 @@ export function Store() {
   };
   return (
     <>
+      <StoreTitle>스토어</StoreTitle>
       <Container>
-        <StoreTitle>스토어</StoreTitle>
         <StoreTitle1>설명</StoreTitle1>
         <StoreImage></StoreImage>
         <StoreGrid>
