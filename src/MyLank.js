@@ -4,13 +4,14 @@ import 내정보수정 from "./assets/img/내정보수정.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import 나의랭킹 from "./assets/img/나의랭킹.png";
+import Pagination from "./Pagination";
 
 const Container = styled.div`
   width: 60%;
   margin: auto;
 `;
 const MyPageTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 140px;
   font-size: 48px;
 
   text-align: center;
@@ -128,7 +129,6 @@ const MyPageLectureLine = styled.div`
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
-  height: 160px;
   text-align: center;
   margin-top: 20px;
 `;
@@ -139,7 +139,7 @@ const MyPageLectureGo = styled.div`
   color: white;
   font-size: 18px;
   line-height: 50px;
-  margin: 20px auto 10px;
+  margin: 20px auto;
   border-radius: 25px;
   text-align: center;
   cursor: pointer;
@@ -348,7 +348,7 @@ const RankingText = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-45%, -80%);
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -564,17 +564,21 @@ export function MyLank() {
               {isLoading ? (
                 <p>강좌 정보를 불러오는 중입니다...</p>
               ) : purchases.length > 0 ? (
-                extractLectures(purchases).map((lecture, index) => (
-                  <React.Fragment key={index}>
-                    <LectureGrid>
-                      <MyLectureName>{lecture.lectureName}</MyLectureName>
-                      <MyLectureClassSubject>
-                        <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
-                        <MyLectureSubject>{lecture.subject}</MyLectureSubject>
-                      </MyLectureClassSubject>
-                    </LectureGrid>
-                  </React.Fragment>
-                ))
+                extractLectures(purchases)
+                  .slice(0, 4)
+                  .map((lecture, index) => (
+                    <React.Fragment key={index}>
+                      <LectureGrid>
+                        <MyLectureName>{lecture.lectureName}</MyLectureName>
+                        <MyLectureClassSubject>
+                          <MyLectureClass>
+                            {lecture.lectureClass}
+                          </MyLectureClass>
+                          <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                        </MyLectureClassSubject>
+                      </LectureGrid>
+                    </React.Fragment>
+                  ))
               ) : (
                 <p>수강 중인 강좌가 없습니다.</p>
               )}

@@ -5,17 +5,19 @@ import PaulT from "./assets/img/PaulT.png";
 import YobelT from "./assets/img/YobelT.png";
 import JaneT from "./assets/img/JaneT.png";
 import { motion } from "framer-motion";
+import mainLogo from "./assets/img/mainWide.png";
 
 const Container = styled.div`
   width: 100%;
-  background-color: gray;
+  background-color: #e5e5e5;
 `;
 
 const Body = styled.div``;
 
-const Box1 = styled.div`
-  background-color: darkgray;
+const Box1 = styled.img`
+  width: 100%;
   height: 920px;
+  color: #e5e5e5;
 `;
 
 const Box2 = styled.div`
@@ -392,7 +394,7 @@ export function Main() {
     <>
       <Container>
         <Body>
-          <Box1></Box1>
+          <Box1 src={mainLogo}></Box1>
           <Box2>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -425,23 +427,56 @@ export function Main() {
             </motion.div>
           </Box2>
           <Box3>
-            <Title3>
-              <Title3_1>단기간 점수 향상!</Title3_1>
-              <Title3_2>명예의 전당</Title3_2>
-            </Title3>
-            <Lanking3>
-              <LankImg3></LankImg3>
-            </Lanking3>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Title3>
+                <Title3_1>단기간 점수 향상!</Title3_1>
+                <Title3_2>명예의 전당</Title3_2>
+              </Title3>
+              <Lanking3>
+                <LankImg3></LankImg3>
+              </Lanking3>
+            </motion.div>
           </Box3>
           <Box4>
-            <Title4>
-              탁월한 강사진들과 함께하는
-              <br />
-              LC, RC 쪽집게 강의
-            </Title4>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Title4>
+                탁월한 강사진들과 함께하는
+                <br />
+                LC, RC 쪽집게 강의
+              </Title4>
+            </motion.div>
             <Lecture>
               <div></div>
-              <TeacherImg2 src={PaulT}></TeacherImg2>
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  x: { duration: 1 },
+                }}
+              >
+                <TeacherImg2 src={PaulT}></TeacherImg2>
+              </motion.div>
               <Info>
                 홍보문구
                 <Name>이름</Name>
@@ -458,11 +493,33 @@ export function Main() {
                 <LectureBtn>수강신청 바로가기</LectureBtn>
               </Info>
               <div></div>
-              <TeacherImg1 src={YobelT}></TeacherImg1>
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  x: { duration: 1 },
+                }}
+              >
+                <TeacherImg1 src={YobelT}></TeacherImg1>
+              </motion.div>
             </Lecture>
             <Lecture>
               <div></div>
-              <TeacherImg1 src={JaneT}></TeacherImg1>
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  x: { duration: 1 },
+                }}
+              >
+                <TeacherImg1 src={JaneT}></TeacherImg1>
+              </motion.div>
               <Info>
                 홍보문구
                 <Name>이름</Name>
