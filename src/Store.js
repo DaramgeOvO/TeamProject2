@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import bookImg from "./assets/img/67패턴.png";
 
 const StoreTitle = styled.div`
-  padding: 200px 0 140px;
+  padding: 200px 0 0;
   text-align: center;
   font-size: 48px;
   font-weight: bold;
@@ -35,11 +36,16 @@ const StoreImage1 = styled.div`
   margin-bottom: 40px;
 `;
 
+const BookImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
 const StoreGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 200px 0 300px 0;
+  margin: 170px 0 150px 0;
 `;
 
 const StoreBox = styled.div`
@@ -179,16 +185,11 @@ export function Store() {
     <>
       <StoreTitle>스토어</StoreTitle>
       <Container>
-        <StoreTitle1>설명</StoreTitle1>
-        <StoreImage></StoreImage>
         <StoreGrid>
           {books.map((book) => (
             <StoreBox key={book.storeItemId}>
               <StoreImage1>
-                <img
-                  src={`/api/images/${book.image_path}`}
-                  alt={book.bookName}
-                />
+                <BookImg src={bookImg} alt={book.bookName} />
               </StoreImage1>
               <StoreImageText1>{book.bookName}</StoreImageText1>
               <StoreImageText2>{book.bookPrice}원</StoreImageText2>
@@ -205,7 +206,7 @@ export function Store() {
           {mockTickets.map((ticket) => (
             <StoreBox key={ticket.storeItemId}>
               <StoreImage1>
-                <img
+                <BookImg
                   src={`/api/images/${ticket.image_path}`}
                   alt={ticket.mockTicketName}
                 />
