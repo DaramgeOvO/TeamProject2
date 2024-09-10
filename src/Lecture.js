@@ -27,7 +27,7 @@ const LectureImg = styled.div`
 const LectureGrade = styled.div`
   width: 70px;
   height: 25px;
-  background-color: black;
+  background-color: #21378d;
   color: white;
   text-align: center;
   line-height: 25px;
@@ -54,7 +54,7 @@ const LectureText3 = styled.div`
 const LecturePrice = styled.div`
   width: 250px;
   height: 50px;
-  background-color: black;
+  background-color: #21378d;
   color: white;
   font-size: 17px;
   font-weight: bold;
@@ -67,24 +67,28 @@ const LecturePrice = styled.div`
 const LectureCart = styled.div`
   width: 250px;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #21378d;
+  background-color: white;
   font-size: 17px;
   text-align: center;
   line-height: 45px;
   border-radius: 25px;
   margin-top: 20px;
+  color: #21378d;
   cursor: pointer; // 커서가 포인터로 변경됨
 `;
 
 const LecturePurchase = styled.div`
   width: 250px;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #21378d;
+  background-color: white;
   font-size: 17px;
   text-align: center;
   line-height: 45px;
   border-radius: 25px;
-  margin-top: 15px;
+  margin-top: 20px;
+  color: #21378d;
   cursor: pointer; // 커서가 포인터로 변경됨
 `;
 
