@@ -25,7 +25,7 @@ const StartMockBtn = styled.div`
   padding: 10px;
   text-align: center;
   border-radius: 20px;
-  margin: 20px 0 30px;
+  margin-top: 20px;
 `;
 
 export function Mock() {
@@ -59,7 +59,7 @@ export function Mock() {
       <Container>
         <Title>모의고사</Title>
         <MockData></MockData>
-        <StartMockBtn onClick={handleStartMock}>응시하기</StartMockBtn>
+        <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
       </Container>
       <Blank></Blank>
     </>

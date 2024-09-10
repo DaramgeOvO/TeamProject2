@@ -18,6 +18,7 @@ const TitleBox = styled.div`
   text-align: center;
   padding: 200px 0 140px;
   font-size: 3rem;
+  font-weight: 600;
 `;
 const ContBox = styled.div``;
 
@@ -143,7 +144,7 @@ export function Customer() {
 
   const handleQnaClick = (qna) => {
     console.log("Navigating to QnaDetail with qna:", qna); // qna 확인
-    navigate(`/qna/${qna.qnaId}`, { state: { qna } });
+    navigate(`/qna/${qna.qnAId}`, { state: { qna } });
   };
 
   const currentData = selectedTab === "notice" ? notices : qnas;

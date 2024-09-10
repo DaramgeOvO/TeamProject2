@@ -16,7 +16,7 @@ const SubMenu = styled.div`
   grid-template-columns: 0.67fr 1fr 4.6fr 1.5fr 0.7fr;
   top: 70px;
   left: 0;
-  z-index: 10;
+  z-index: 1000;
   padding: 0;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
@@ -30,6 +30,7 @@ const Header = styled.div`
   display: grid;
   grid-template-columns: 0.7fr 1fr 4fr 1.5fr 0.7fr;
   transition: background-color 0.3s ease-in-out;
+  z-index: 1000;
 `;
 
 const MenuContainer = styled.div`
@@ -46,7 +47,7 @@ const MenuContainer = styled.div`
     background-color: #fff;
   }
   &:not(:hover) ${Header} {
-    background-color: transparent;
+    background-color: ${(props) => (props.scrolled ? "#fff" : "transparent")};
     transition-delay: 0.01s;
   }
 `;
@@ -115,6 +116,7 @@ const SubRight = styled.div`
 
 export function Menu() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -126,8 +128,23 @@ export function Menu() {
     }
   }, []);
 
+  const handleScroll = () => {
+    if (window.scrollY > 600) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const handleLogout = (e) => {
-    e.preventDefault(); // 링크의 기본 동작 방지
+    e.preventDefault();
     sessionStorage.removeItem("JWT-Token");
     sessionStorage.removeItem("UserID");
     sessionStorage.removeItem("Authority");
@@ -137,8 +154,8 @@ export function Menu() {
   };
 
   return (
-    <MenuContainer>
-      <Header>
+    <MenuContainer scrolled={scrolled}>
+      <Header scrolled={scrolled}>
         <div></div>
         <a href="/">
           <Img src={logo} alt="logo"></Img>
@@ -181,23 +198,17 @@ export function Menu() {
             <SubMenuBtn to="/store">모의고사 구매권</SubMenuBtn>
           </div>
           <div>
-            <SubMenuBtn to="/test">모의고사</SubMenuBtn>
+            <SubMenuBtn to="/mock">모의고사</SubMenuBtn>
             <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
           </div>
-          <div>
-            <SubMenuBtn to="/game">플레이센터</SubMenuBtn>
-            <SubMenuBtn to="/game">랭킹</SubMenuBtn>
-            <SubMenuBtn to="/gameshop">상점</SubMenuBtn>
-            <SubMenuBtn to="/gameshop">출석체크</SubMenuBtn>
-          </div>
+          <div></div>
           <div>
             <SubMenuBtn to="/studyroom">커뮤니티</SubMenuBtn>
             <SubMenuBtn to="/speciallecroom">실시간특강</SubMenuBtn>
-            <SubMenuBtn to="/grouplecroom">그룹수강</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/customer">공지사항</SubMenuBtn>
-            <SubMenuBtn to="/customer">Q n A</SubMenuBtn>
+            <SubMenuBtn to="/customer">1 : 1 문의</SubMenuBtn>
           </div>
         </SubCenter>
         {isLoggedIn && (
