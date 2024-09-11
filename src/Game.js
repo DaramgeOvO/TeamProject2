@@ -9,12 +9,22 @@ const Title = styled.div`
   flex-direction: column;
   padding: 120px 0 140px;
 `;
-const H1 = styled.h1``;
-const StartButton = styled.button``;
+const H1 = styled.div`
+  font-size: 3rem;
+  font-family: GmarketBold;
+`;
+const StartButton = styled.button`
+  width: 300px;
+  height: 60px;
+  border-radius: 40px;
+  font-size: 1.5rem;
+  font-family: poppinsRegular;
+  margin: 240px 0;
+`;
 
 const Container = styled.div`
-  width: 400px;
-  height: 700px;
+  width: 1300px;
+  height: 800px;
   margin: auto;
   margin-bottom: 100px;
   margin-top: -50px;
@@ -51,14 +61,16 @@ export function Game() {
   return (
     <>
       <Title>
-        <H1>Word Rush Game</H1>
-        <StartButton onClick={() => setPlayingGame(true)}>
-          Start Game
-        </StartButton>
+        <H1>Into Island</H1>
+        {!playingGame && (
+          <StartButton onClick={() => setPlayingGame(true)}>
+            Game Start
+          </StartButton>
+        )}
       </Title>
 
-      <Container>
-        {playingGame ? (
+      {playingGame && (
+        <Container>
           <Unity
             unityProvider={unityProvider}
             style={{
@@ -66,8 +78,9 @@ export function Game() {
               height: "100%",
             }}
           />
-        ) : null}
-      </Container>
+        </Container>
+      )}
+
       {isGameOver && (
         <p>{`Game Over ${userName}! You've scored ${score} points.`}</p>
       )}

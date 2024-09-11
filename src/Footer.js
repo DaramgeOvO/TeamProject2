@@ -6,7 +6,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 const Footer = styled.div`
   height: 60px;
   margin-top: auto;
-  background-color: #030e23;
+  background-color: #1d1d1f;
 `;
 const Div = styled.div`
   width: 95%;

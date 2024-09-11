@@ -90,14 +90,10 @@ export function NoticeWirte() {
       return;
     }
 
-    const userId = sessionStorage.getItem("UserID");
-
-    const writeDate = new Date().toISOString();
-
     try {
       const response = await axios.post(
         "/api/notice",
-        { title, content, user: { userId }, writeDate },
+        { title, content },
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
@@ -108,7 +104,7 @@ export function NoticeWirte() {
       alert("공지사항이 등록되었습니다.");
       navigate("/customer");
     } catch (error) {
-      console.log("에러:", error);
+      console.error("에러:", error);
       alert("공지사항 등록에 실패했습니다.");
     }
   };
