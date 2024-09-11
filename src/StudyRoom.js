@@ -7,6 +7,12 @@ import DoorImg from "./assets/img/DoorImg.png";
 import LockImg from "./assets/img/LockImg.png";
 
 const urlStudyroom = "/api/studyroom";
+const urlSession = "/api/user/current";
+
+const Header = styled.div`
+  height: 600px;
+  background-color: gray;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -24,9 +30,9 @@ const Box = styled.div`
 
 const Room = styled.div`
   width: 250px;
-  height: 380px;
+  height: 384px;
   background-image: url(${DoorImg});
-  background-color: black;
+  background-size: cover;
   justify-self: center;
   margin: 50px;
   text-align: center;
@@ -37,13 +43,12 @@ const Title = styled.div`
   text-align: center;
   font-size: 3rem;
   font-weight: 600;
-  font-family: GmarketBold;
   padding: 50px;
-  margin: 150px 50px 0px 50px;
+  margin: 90px 50px 0px 50px;
 `;
 
 const RoomName = styled.div`
-  margin: 30px;
+  margin: 47px;
   font-size: 1.4rem;
   font-weight: bold;
 `;
@@ -104,20 +109,26 @@ export function StudyRoom() {
       alert("스터디룸 입장을 위해서는 로그인이 필요합니다");
       return;
     } else {
-      if (userGrade == null) {
-        if (
-          window.confirm(
-            "아직 등급이 없습니다. 모의고사 창으로 이동하시겠습니까?"
-          )
-        ) {
-          navigate(`/mock`);
-        }
-      } else if (roomGrade == userGrade) {
+      if (roomGrade == "오픈채팅") {
         navigate(`/chating-room/${roomId}/${userId}`, {
           state: { grade: roomGrade },
         });
       } else {
-        alert("현재 레벨 외의 스터디룸에는 입장이 불가합니다");
+        if (userGrade == null) {
+          if (
+            window.confirm(
+              "아직 등급이 없습니다. 모의고사 창으로 이동하시겠습니까?"
+            )
+          ) {
+            navigate(`/mock`);
+          }
+        } else if (roomGrade == userGrade) {
+          navigate(`/chating-room/${roomId}/${userId}`, {
+            state: { grade: roomGrade },
+          });
+        } else {
+          alert("현재 레벨 외의 스터디룸에는 입장이 불가합니다");
+        }
       }
     }
   };
@@ -134,7 +145,8 @@ export function StudyRoom() {
                 handleRoomClick(room.stRoomId, room.mockGrade.mockGradeName)
               }
             >
-              {userGrade !== room.mockGrade.mockGradeName && <LockIcon />}
+              {userGrade !== room.mockGrade.mockGradeName &&
+                room.mockGrade.mockGradeName !== "오픈채팅" && <LockIcon />}
               <RoomName>{room.mockGrade.mockGradeName}</RoomName>
             </Room>
           ))}
