@@ -6,6 +6,8 @@ import 강의1 from "./assets/img/강의실1.png";
 import 강의2 from "./assets/img/강의실 2.png";
 import 강의3 from "./assets/img/강의실 3.png";
 import 선생님 from "./assets/img/선생님들.png";
+import 어바웃2 from "./assets/img/어바웃2.png";
+import 그룹 from "./assets/img/그룹스터디.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -68,14 +70,14 @@ const Line = styled.div`
 
 const Blank = styled.div`
   width: 100%;
-  height: 200px;
+  height: 100px;
 `;
 
 const Title = styled.div`
   font-size: 3.5rem;
   font-weight: 550;
   padding: 100px;
-  margin: 50px;
+  margin: 0px 0;
 `;
 
 const InfoWrapper = styled.div`
@@ -132,7 +134,7 @@ const InfoText2_2 = styled.div`
 const MidBox = styled.div`
   width: 100%;
   height: 200px;
-  background-color: gray;
+  background-color: #c9c9c9;
   text-align: center;
   font-size: 2.5rem;
   font-weight: 600;
@@ -220,7 +222,7 @@ export function About() {
             </InfoTextBox1>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoImg1 src={선생님}></InfoImg1>
+            <InfoImg1 src={어바웃2}></InfoImg1>
 
             <InfoTextBox1>
               <InfoText1_1>효율적인 학습 시스템</InfoText1_1>
@@ -240,7 +242,7 @@ export function About() {
             </InfoTextBox1>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoImg1 src={선생님}></InfoImg1>
+            <InfoImg1 src={그룹}></InfoImg1>
 
             <InfoTextBox1>
               <InfoText1_1>수준별 그룹 스터디</InfoText1_1>
