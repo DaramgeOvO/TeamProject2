@@ -12,10 +12,12 @@ import 중급 from "./assets/img/중급.png";
 import 고급 from "./assets/img/고급.png";
 import 랭커 from "./assets/img/랭커.png";
 import 만점 from "./assets/img/만점.png";
+import { imageSource } from "./ImageSource";
 
 const Container = styled.div`
   width: 60%;
   margin: auto;
+  font-family: GmarketMedium;
 `;
 const MyPageTitle = styled.div`
   padding: 200px 0 0;
@@ -45,9 +47,11 @@ const MyPageBox1Grid1 = styled.div`
   margin: 25px 0;
 `;
 const MyPageBox1Grid2 = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   justify-items: center;
+  padding: 0 100px;
 `;
 const MyPagePhoto = styled.div`
   width: 100px;
@@ -60,7 +64,7 @@ const MyPagePhoto = styled.div`
 `;
 const MyPageText = styled.div`
   margin-left: 30px;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 const MyPageEdit = styled.div`
   width: 130px;
@@ -82,7 +86,7 @@ const TextBox1 = styled.div`
 const TextBox2 = styled.div`
   font-size: 18px;
   color: #646464;
-  margin-top: 8px;
+  margin: 6px 0px 0px -10px;
 `;
 const MyPageText2 = styled.div`
   font-size: 18px;
@@ -100,6 +104,9 @@ const MyRankingBox = styled.div`
   height: 73px;
   margin-bottom: 15px;
 `;
+const MyRankingText = styled.div`
+  margin-left: 4px;
+`;
 const GameRanking = styled.div`
   text-align: center;
 `;
@@ -108,6 +115,10 @@ const GameRankingBox = styled.div`
   height: 73px;
 
   margin-bottom: 15px;
+`;
+
+const GameRankText = styled.div`
+  margin-left: -10px;
 `;
 
 const MyPageLecture = styled.div`
@@ -151,6 +162,7 @@ const MyPageSubMenu = styled.div`
   padding: 20px 30px;
   background-color: #c9c9c9;
   border-radius: 25px;
+  font-family: GmarketMedium;
 `;
 const LearningStatusGo = styled.div`
   text-align: center;
@@ -227,7 +239,7 @@ const MyLectureSubject = styled.div`
 
 const OrderDeliveryTitle = styled.div`
   font-size: 25px;
-  margin: 10px 0px 50px 20px;
+  margin: 100px 0px 50px 20px;
 `;
 const OrderDeliveryGrid = styled.div`
   display: grid;
@@ -257,12 +269,12 @@ const PointGrid = styled.div`
   font-size: 17px;
 `;
 
-const PurchaseImg = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+const PurchaseImg = styled.img`
+  width: 160px;
+  height: 90px;
   background-color: #d9d9d9;
   margin: auto;
+  margin-left: 90px;
 `;
 const PurchaseTitle = styled.div`
   display: flex;
@@ -354,6 +366,10 @@ const QnaTitle = styled.div`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const P = styled.div`
+  padding: 30px;
 `;
 
 const QnaStatus = styled.div`
@@ -614,19 +630,19 @@ export function MyLank() {
                   인투어학원이 <b>{user.name}</b> 님의 토익점수를 응원합니다!
                 </MyPageText2>
               </MyPageText>
-              <MyPageEdit>
+              {/* <MyPageEdit>
                 내 정보 수정　
                 <img src={내정보수정}></img>
-              </MyPageEdit>
+              </MyPageEdit> */}
             </MyPageBox1Grid1>
             <MyPageLine></MyPageLine>
             <MyPageBox1Grid2>
               <MyRanking>
                 <MyRankingBox>
                   <img src={나의랭킹} alt="나의랭킹" />
-                  <RankingText>##위</RankingText>
+                  <RankingText>{score}점</RankingText>
                 </MyRankingBox>
-                나의 랭킹
+                <MyRankingText>나의 점수</MyRankingText>
               </MyRanking>
               <GameRanking>
                 <GameRankingBox>
@@ -640,7 +656,7 @@ export function MyLank() {
                     }}
                   />
                 </GameRankingBox>
-                {user.grade}
+                <GameRankText>{user.grade}</GameRankText>
               </GameRanking>
             </MyPageBox1Grid2>
           </MyPageBox1>
@@ -710,7 +726,7 @@ export function MyLank() {
                 </React.Fragment>
               ))
             ) : (
-              <p>수강 중인 강좌가 없습니다.</p>
+              <P></P>
             )}
           </LearningStatus>
         </div>
@@ -730,7 +746,9 @@ export function MyLank() {
                 const productInfo = getProductInfo(purchase);
                 return (
                   <PurchaseItem key={index}>
-                    <PurchaseImg />
+                    <PurchaseImg
+                      src={imageSource[purchase.lectures[0].lectureImage]}
+                    ></PurchaseImg>
                     <PurchaseTitle>
                       <ProductName>{productInfo.name}</ProductName>
                       <ProductType>{productInfo.type}</ProductType>
@@ -754,7 +772,7 @@ export function MyLank() {
               />
             </>
           ) : (
-            <p>구매 내역이 없습니다.</p>
+            <P>구매 내역이 없습니다.</P>
           )}
         </div>
 
@@ -792,7 +810,7 @@ export function MyLank() {
                 </QnaItem>
               ))
             ) : (
-              <p>작성한 1:1 문의가 없습니다.</p>
+              <P>작성한 1:1 문의가 없습니다.</P>
             )}
           </MyWriting>
         </div>
